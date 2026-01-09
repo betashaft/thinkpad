@@ -1,0 +1,21 @@
+{
+
+    "wlr/taskbar": {
+      // "format": "{icon}",
+      "format": "{title:.17} | ",
+      "icon-size": 18,
+      "icon-theme": "BeautyLine",
+      "tooltip-format": "{title}",
+      "on-click": "activate",
+      "on-click-middle": "close",
+      // "ignore-list": ["Alacritty"],
+      "app_ids-mapping": {
+        "firefoxdeveloperedition": "firefox-developer-edition"
+      },
+      "rewrite": {
+        "Firefox Web Browser": "Firefox"
+      }
+    },
+
+    
+  }

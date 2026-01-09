@@ -1,0 +1,550 @@
+/*
+ * __        __          _                  ____  _         _       
+ * \ \      / /_ _ _   _| |__   __ _ _ __  / ___|| |_ _   _| | ___  
+ *  \ \ /\ / / _` | | | | '_ \ / _` | '__| \___ \| __| | | | |/ _ \ 
+ *   \ V  V / (_| | |_| | |_) | (_| | |     ___) | |_| |_| | |  __/ 
+ *    \_/\_/ \__,_|\__, |_.__/ \__,_|_|    |____/ \__|\__, |_|\___| 
+ *                 |___/                              |___/         
+ *  
+ * by Stephan Raabe (2023) 
+ * ----------------------------------------------------- 
+*/
+
+
+/* @import 'style-light.css'; */
+
+/* -----------------------------------------------------
+ * General 
+ * ----------------------------------------------------- */
+/* Colors (gruvbox) */
+@define-color black	#282828;
+@define-color red	#cc241d;
+@define-color green	#98971a;
+@define-color yellow	#d79921;
+@define-color blue	#458588;
+@define-color aqua	#689d6a;
+@define-color gray	#a89984;
+@define-color brgray	#928374;
+@define-color brred	#fb4934;
+@define-color brgreen	#b8bb26;
+@define-color bryellow	#fabd2f;
+@define-color brblue	#83a598;
+@define-color brpurple	#d3869b;
+@define-color braqua	#8ec07c;
+@define-color white	#ebdbb2;
+@define-color bg2	#504945;
+
+@define-color brown		#8b8589;
+@define-color lightbrown	#989898;
+@define-color gray		#838996;
+@define-color lilac		#979aaa;
+@define-color purple		#8f7bb0;
+
+
+/*-------------
+*Pastel Colors-
+*--------------*/
+@define-color ppink		#b88c8c;
+@define-color psalmon		#ddadad;
+@define-color prose		#ddadad;
+@define-color pblueg		#9fb9bf;
+@define-color pg		#aec8ce;
+@define-color pbluep		#A8B5E0;
+@define-color psoftpink		#CDCEE0;
+@define-color bluetooth		#9BA1C7;
+
+@define-color cpu2		@purple;
+@define-color mem		#91a5a1;
+@define-color storage		#b29b8c;
+@define-color exit		#659dbd;
+
+
+@define-color warning 	@bryellow;
+@define-color critical	@red;
+@define-color mode	@black;
+@define-color unfocused	@bg2;
+@define-color focused	@brblue;
+@define-color inactive	@purple;
+@define-color sound	@brpurple;
+@define-color network	#78ad82;
+@define-color memory	@braqua;
+@define-color cpu	@green;
+@define-color temp	@brgreen;
+@define-color layout	@bryellow;
+@define-color battery	@aqua;
+@define-color date	@black;
+@define-color time	@white;
+
+/*------------------------------------------------
+*Arrows
+--------------------------------------------------*/
+#custom-arrow1 {
+	font-size: 15pt;
+	color: @gray;
+	background: @mem;
+    	opacity:0.8;
+}
+
+#custom-arrow2 {
+	font-size: 15pt;
+	color: @network;
+	background: @bluetooth;
+        opacity:0.8;
+}
+
+#custom-arrow3 {
+	font-size: 15pt;
+	color: @psoftpink;
+	background: @gray;
+    	opacity:0.8;
+}
+
+#custom-arrow4 {
+	font-size: 15pt;
+	color: @bluetooth;
+	background: @psoftpink;
+    	opacity:0.8;
+}
+
+#custom-arrow5 {
+	font-size: 15pt;
+	color: @storage;
+	background: @mem;
+    	opacity:0.8;
+}
+
+#custom-arrow6 {
+	font-size: 15pt;
+	color: @psalmon;
+	background: @cpu2;
+    	opacity:0.8;
+}
+
+#custom-arrow7 {
+	font-size: 15pt;
+	color: @lightbrown;
+	background: @network;
+    	opacity:0.8;
+}
+
+#custom-arrow8 {
+	font-size: 15pt;
+	color: @exit;
+	background: @lightbrown;
+    	opacity:0.8;
+}
+
+#custom-arrow9 {
+	font-size: 15pt;
+	color: @mem;
+	background: transparent;
+    	opacity:0.8;
+}
+
+#custom-arrow10 {
+	font-size: 15pt;
+	color: @focused;
+	background: transparent;
+    	opacity:0.8;
+  margin-right: 10px;
+}
+
+/*-------------------------------------------------
+* Global
+---------------------------------------------------*/
+* {
+    font-family: TamzenForPowerline;
+    font-size: 12pt;
+    border: none;
+    border-radius: 0px;
+}
+
+window#waybar {
+  background: #2D353B;
+	color: #2D353B;
+    /* color: #FFFFFF; */
+    transition-property: background-color;
+    transition-duration: .5s;
+    padding: 0;
+    margin: 0;
+}
+
+/* -----------------------------------------------------
+ * Workspaces 
+ * ----------------------------------------------------- */
+
+#workspaces {
+    background: @focused;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    border: 0px;
+    font-weight: bold;
+    font-style: normal;
+    opacity: 0.8;
+    font-size: 12px;
+    color: @black;
+}
+
+#workspaces button {
+    padding: 0px 3px;
+    margin: 0px 0px;
+    border: 0px;
+    color: @black;
+    font-weight: bold;
+    background-color: @workspacesbackground2;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @textcolor1;
+    background: #2D353B;
+    min-width: 20px;
+    transition: all 0.3s ease-in-out;
+    opacity:1.0;
+}
+
+#workspaces button:hover {
+    color: @textcolor1;
+    background: @unfocused;
+    opacity:0.7;
+}
+
+/* -----------------------------------------------------
+ * Tooltips
+ * ----------------------------------------------------- */
+
+tooltip {
+    border-radius: 10px;
+    background-color: #2D353B;
+    padding:20px;
+    margin:0px;
+    border:1px solid;
+    border-color: #A7C080;
+}
+
+tooltip label {
+    color: #D3C6AA;
+}
+
+/* -----------------------------------------------------
+ * Window
+ * ----------------------------------------------------- */
+
+#window {
+    background: @backgroundlight;
+    margin: 0px 12px 0px 0px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 12px;
+    color:#D3C6AA;
+    font-size:12px;
+    font-weight:normal;
+    opacity:0.8;
+}
+
+window#waybar.empty #window {
+    background-color:transparent;
+}
+
+/* -----------------------------------------------------
+ * Taskbar
+ * ----------------------------------------------------- */
+
+#taskbar {
+    background: @backgroundlight;
+    margin: 0px 12px 0px 0px;
+    padding:0px;
+    border-radius: 15px;
+    font-weight: normal;
+    font-style: normal;
+    opacity:0.8;
+    border: 3px solid @backgroundlight;
+}
+
+#taskbar button {
+    margin:0;
+    border-radius: 14px;
+    padding: 0px 5px 0px 5px;
+}
+
+/* -----------------------------------------------------
+ * Modules
+ * ----------------------------------------------------- */
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* -----------------------------------------------------
+ * Custom Quicklinks
+ * ----------------------------------------------------- */
+
+#custom-brave, 
+#custom-browser, 
+#custom-keybindings, 
+#custom-outlook, 
+#custom-filemanager, 
+#custom-teams, 
+#custom-chatgpt, 
+#custom-calculator, 
+#custom-windowsvm, 
+#custom-cliphist, 
+#custom-wallpaper, 
+#custom-settings, 
+#custom-wallpaper, 
+#custom-system,
+#custom-hyprshade,
+#custom-hypridle,
+
+
+#custom-waybarthemes {
+    margin-right: 23px;
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0.8;
+    color: @iconcolor;
+}
+#custom-cliphist {
+    margin-right:0px;
+    background-color:@psalmon;
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    color:@black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+#custom-system {
+    margin-right:15px;
+    background-color:@cpu2;
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    color:@black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+#custom-browser {
+    font-size:12px;
+    color:@iconcolor;
+}
+
+
+#custom-filemanager {
+    font-size:12px;
+    color:@iconcolor;
+}
+
+#custom-wallpaper {
+    margin-right:25px;
+    font-size:12px;
+    color:@iconcolor;
+}
+
+#custom-hyprlandconfig {
+    margin-right:20px;
+    font-size:14px;
+    color:@iconcolor;
+}
+#custom-waybarconfig {
+    margin-right:25px;
+    font-size:14px;
+    color:@iconcolor;
+}
+/* -----------------------------------------------------
+ * Custom Modules
+ * ----------------------------------------------------- */
+
+#custom-appmenu {
+    background-color: @backgrounddark;
+    font-size: 12px;
+    color: @textcolor1;
+    border-radius: 15px;
+    border-radius: 14px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 12px 0px 0px;
+    opacity:0.8;
+}
+
+/* -----------------------------------------------------
+ * Custom Exit
+ * ----------------------------------------------------- */
+
+#custom-exit {
+    background-color: @exit;
+    padding:0px;
+    font-size: 16px;
+    color: @black;
+    padding: 0px 15px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+#custom-notification {
+    background-color: @exit;
+    padding:0px;
+    font-size: 12px;
+    color: @black;
+    padding: 0px 15px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+/* -----------------------------------------------------
+ * Hardware Group
+ * ----------------------------------------------------- */
+
+ #disk {
+    background-color:@cpu2;
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    color:@black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+ #memory {
+    background-color:@cpu2;
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    color:@black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+ #cpu {
+    background-color:@cpu2;
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    color:@black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+#language {
+    margin-right:0px;
+}
+
+/* -----------------------------------------------------
+ * Clock
+ * ----------------------------------------------------- */
+
+#clock {
+    background-color: @lightbrown;
+    font-size: 15px;
+    font-weight: bold;
+    color: @black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+
+}
+
+/* -----------------------------------------------------
+ * Pulseaudio
+ * ----------------------------------------------------- */
+
+#pulseaudio {
+    background-color: @gray;
+    font-size: 13px;
+    color: @black;
+    padding: 0px 10px 0px 5px;
+    opacity:0.8;
+}
+
+#pulseaudio.muted {
+    background-color: @gray;
+    color: @black;
+}
+
+/* -----------------------------------------------------
+ * Backlight
+ * ----------------------------------------------------- */
+
+#backlight {
+    background-color: @psoftpink;
+    font-size: 13px;
+    color: @black;
+    padding: 0px 10px 0px 5px;
+    opacity:0.8;
+}
+
+/* -----------------------------------------------------
+ * Bluetooth
+ * ----------------------------------------------------- */
+
+#bluetooth {
+    background-color: @bluetooth;
+    font-size: 13px;
+    color: @black;
+    padding: 0px 10px 0px 5px;
+    opacity:0.8;
+}
+
+/* -----------------------------------------------------
+ * Network
+ * ----------------------------------------------------- */
+
+#network {
+    background-color: @network;
+    font-size: 13px;
+    color: @black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+#network.ethernet {
+    background-color: @network;
+    color: @black;
+}
+
+#network.wifi {
+    background-color: @network;
+    color: @black;
+}
+
+#battery {
+    background-color: @mem;
+    font-size: 13;
+    color: @black;
+    border-radius: 0px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+    opacity:0.8;
+}
+
+
+/* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+    padding: 0px 12px 0px 0px;
+    color: @textcolor3;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

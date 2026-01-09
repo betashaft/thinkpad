@@ -1,0 +1,272 @@
+{
+
+// Group Configuration
+    "group/power": {
+      "orientation": "inherit",
+      "drawer": {
+        "transition-duration": 500,
+        "children-class": "drawer-child",
+        "transition-left-to-right": false
+      },
+      "modules": [
+        "custom/power", // First element is the "group leader" and won't ever be hidden
+        "custom/quit",
+        "custom/lock",
+        "custom/reboot"
+      ]
+    },
+    "custom/quit": {
+      "format": "󰗼",
+      "tooltip": false,
+      "on-click": "hyprctl dispatch exit"
+    },
+    "custom/lock": {
+      "format": "󰍁",
+      "tooltip": false,
+      "on-click": "hyprlock"
+    },
+    "custom/reboot": {
+      "format": "󰜉",
+      "tooltip": false,
+      "on-click": "reboot"
+    },
+    "custom/power": {
+      "format": "",
+      "tooltip": false,
+      "on-click": "shutdown now"
+    },
+  "group/radio": {
+    "orientation": "inherit",
+    "modules": [
+      "bluetooth",
+      "network"
+    ]
+    
+  },
+
+  "group/right": {
+    "orientation": "inherit",
+    "modules": [
+      "mpris",
+      "mpd",
+      "battery",
+      "backlight",
+      "wireplumber",
+      "tray",
+      "custom/notification"
+      ]
+    },
+        // Modules configuration
+    "tray": {
+      "icon-size": 18,
+      "spacing": 10
+    },
+    "bluetooth": {
+      "format": " {status}",
+      "format-connected": " {device_alias}",
+      "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+      // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+      "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+    "hyprland/workspaces": {
+      "on-click": "activate",
+      "format": "{icon}",
+     
+      // "persistent-workspaces": {
+      //     "*": [10] // 1 workspaces by default on every monitor
+      //     // "HDMI-A-1": 3 // but only three on HDMI-A-1
+      // },
+      "format-icons": {
+        // "1": "1",
+        // "2": "2",
+        // "3": "3",
+        // "4": "4",
+        // "5": "5",
+        // "6": "6",
+        // "7": "7",
+        // "8": "8",
+        // "9": "9",
+        // "10": "10",
+        "special": "🎁",
+        // "urgent": "",
+        "persistent": ""
+        // "default": " ",
+      }
+    },
+    "hyprland/window": {
+      "format": "{}",
+      "max-length": 50,
+      "rewrite": {
+        "(.*) — Mozilla Firefox": "🌎 $1"
+      },
+      "separate-outputs": true
+    },
+    "network": {
+      //"interface": "wlp2s0",
+      "format": "{ifname} [󰾆 {bandwidthTotalBytes}]",
+      "format-wifi": "{icon} {essid} [󰾆 {bandwidthTotalBytes}]",
+      "format-ethernet": "󱘖  {ifname} [󰾆 {bandwidthTotalBytes}]",
+      "format-disconnected": "󰌙 Disconnected ⚠",
+      "format-disabled": "󰌙 Disconnected ⚠",
+      "format-alt": "  {ipaddr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+      "tooltip-format": "{ifname} via {gwaddr} ",
+      "tooltip-format-wifi": "{frequency} MHz ({signalStrength}%)",
+      "tooltip-format-ethernet": "{ipaddr}/{cidr}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+      "tooltip-format-disconnected": "Disconnected ⚠",
+      "max-length": 50,
+      "format-icons": ["󰤯 ", "󰤟 ", "󰤢 ", "󰤢 ", "󰤨 "]
+    },
+    "clock": {
+      "format": "{:%I:%M:%S %p}",
+      "format-alt": "📅{:%A, %B %d, %Y (%I:%M %p)}",
+      //"format": "<span color='#bf616a'> </span>{:%I:%M %p}",
+      //"format-alt": "<span color='#bf616a'> </span>{:%A, %B %d, %Y (%I:%M %p)}",
+      // "format": "{: %R   %d/%m}",
+      "interval": 1,
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+        "mode": "year",
+        "mode-mon-col": 3,
+        "weeks-pos": "right",
+        "on-scroll": 1,
+        "on-click-right": "mode",
+        "format": {
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        }
+      },
+      "actions": {
+        "on-click-right": "mode",
+        "on-click-forward": "tz_up",
+        "on-click-backward": "tz_down",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+      }
+    },
+    "backlight": {
+      "device": "intel_backlight",
+      "format": "{icon} {percent}%",
+      "format-icons": ["", "", "", "", "", "", "", "", ""],
+      "on-scroll-up": "brightnessctl set 1%+",
+      "on-scroll-down": "brightnessctl set 1%-"
+    },
+    "battery": {
+      //"bat": "BAT2",
+      "interval": 60,
+      "states": {
+        "good": 95,
+        "warning": 30,
+        "critical": 20
+      },
+      "format": "{icon} {capacity}%",
+      "format-warning": "{icon} {capacity}%",
+      "format-critical": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-plugged": " {capacity}%",
+      "format-alt": "{time} {icon}",
+      "format-full": "⚡ {capacity}%",
+      "format-icons": [
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // "",
+        // ""
+        "󰂎",
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    },
+    "wireplumber": {
+      "format": " {volume}%",
+      "format-muted": " Muted",
+      "scroll-step": 0.2,
+      "max-volume": 100,
+      "on-click": "pavucontrol",
+      "on-click-right": "qpwgraph"
+    },
+    "mpris": {
+      "format": "{player_icon} {dynamic}",
+      "format-paused": "{status_icon} <i>{dynamic}</i>",
+      "max-length": 50,
+      "player-icons": {
+        "default": "󰎆 ",
+        "cmus": "",
+        "mpv": "🎵",
+        "vlc": "🎬",
+        "spotify": " "
+      },
+      "status-icons": {
+        "paused": "⏸"
+      },
+      "on-click": "playerctl play-pause",
+      "on-click-right": "playerctl stop",
+      "smooth-scrolling-threshold": 10,
+      "on-scroll-down": "playerctl previous"
+      // "ignored-players": ["cmus", "spotify"]
+    },
+    "mpd": {
+      "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+      "format-disconnected": "Disconnected ",
+      "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+      "interval": 10,
+      "consume-icons": {
+        "on": " " // Icon shows only when "consume" is on
+      },
+      "random-icons": {
+        "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+        "on": " "
+      },
+      "repeat-icons": {
+        "on": " "
+      },
+      "single-icons": {
+        "on": "1 "
+      },
+      "state-icons": {
+        "paused": "",
+        "playing": ""
+      },
+      "tooltip-format": "MPD (connected)",
+      "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "custom/notification": {
+      "tooltip": false,
+      "format": "{} {icon}",
+      "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+      },
+      "return-type": "json",
+      "exec-if": "which swaync-client",
+      "exec": "swaync-client -swb",
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "escape": true
+    }
+ }
